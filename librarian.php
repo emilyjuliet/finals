@@ -1,3 +1,19 @@
+<?php
+
+    session_start();
+
+
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+        header("location: home.html");
+        exit;
+    }
+
+
+    require_once "Classes/config.php";
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +31,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="librarian.html"><i style="color:pink;"class="fa fa-home"></i>Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="librarian.php"><i style="color:pink;" class="fa fa-home"></i>Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="books.php"><i style="color:pink;"class="fa fa-book-open"></i>Add books <span class="sr-only">(current)</span></a>
