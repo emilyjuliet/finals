@@ -8,7 +8,7 @@ exit;
 }
 
 
-require_once "Classes/config.php";
+require_once "class/config.php";
 ?>
 
 <!DOCTYPE html>
@@ -31,14 +31,11 @@ require_once "Classes/config.php";
                 <a class="nav-link" href="student.php"><i style="color:pink;" class="fa fa-home"></i>Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#"><i style="color:pink;"class="fa fa-book"></i>Book list <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="#"><i style="color:pink;"class="fa fa-book-reader"></i>Reserve book <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="books.php"><i style="color:pink;"class="fa fa-book-reader"></i>Books<span class="sr-only">(current)</span></a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i style="color:pink;float: right"class="fa fa-sign-out-alt"></i>Logout <span class="sr-only">(current)</span></a>
+            <li class="nav-item active">
+                <a class="nav-link" href="logout.php"><i style="color:pink;float: right"class="fa fa-sign-out-alt"></i>Logout <span class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>

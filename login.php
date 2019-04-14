@@ -9,10 +9,10 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 }
 
 
-require_once "Classes/config.php";
+require_once "class/config.php";
 
 
-$email = $password = $isadmin = "";
+$email = $password = $is_admin = "";
 $email_err = $password_err = "";
 
 
@@ -52,7 +52,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 // Check if email exists, if yes then verify password
                 if(mysqli_stmt_num_rows($stmt) == 1){
                     // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $id, $email, $hashed_password, $isadmin);
+                    mysqli_stmt_bind_result($stmt, $id, $email, $hashed_password, $is_admin);
 
                     if(mysqli_stmt_fetch($stmt)){
                         if(password_verify($password, $hashed_password)){
@@ -63,22 +63,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["email"] = $email;
-                            $_SESSION["is_admin"] =$isadmin;
+                            $_SESSION["is_admin"] =$is_admin;
 
-                            header("location: home.php");
+//                            header("location: home.php");
 
 
-                            // Redirect user according to user type
-                            //     if($usertype == 1) {
-                            //         //doctor
-                            //     header("location: doctor/doctor_page.php");
-                            // }elseif($usertype == 2) {
-                            //     //nurse
-                            //     header("location: nurse/nurse_page.php");
-                            // }elseif($usertype == 3) {
-                            //     //labtech
-                            //     header("location: labtech/labtech_page.php");
-                            // }
+                             //Redirect user according to user type
+                                 if($is_admin == 1) {
+                                     //librarian
+                                 header("location: librarian.php");
+                             }elseif($is_admin == 0) {
+                                 //student
+                                 header("location: student.php");
+                             }
 
                         } else{
                             // Display an error message if password is not valid

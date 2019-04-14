@@ -1,15 +1,15 @@
 <?php
 
-    session_start();
-
-
-    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-        header("location: home.html");
-        exit;
-    }
-
-
-    require_once "Classes/config.php";
+//    session_start();
+//
+//
+//    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+//        header("location: home.html");
+//        exit;
+//    }
+//
+//
+//    require_once "class/config.php";
 
 
 ?>
@@ -37,12 +37,12 @@
                 <a class="nav-link" href="books.php"><i style="color:pink;"class="fa fa-book-open"></i>Add books <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#"><i style="color:pink;"class="fa fa-book"></i>Book list <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="booklist.php"><i style="color:pink;"class="fa fa-book"></i>Book list <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="#"><i style="color:pink;"class="fa fa-info"></i>View status <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="logout.php"><i style="color:pink;"class="fa fa-sign-out-alt"></i>Logout <span class="sr-only">(current)</span></a>
             </li>
         </ul>
