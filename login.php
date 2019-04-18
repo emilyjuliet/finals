@@ -1,15 +1,17 @@
 <?php
 
 session_start();
-
-
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: home.html");
-    exit;
+require_once "class/config.php";
+if(isset($_SESSION['user'])) {
+    if ($is_admin == 1) {
+        //librarian
+        header("location: librarian.php");
+    } elseif($is_admin == 0){
+        //student
+        header("location: student.php");
+    }
 }
 
-
-require_once "class/config.php";
 
 
 $email = $password = $is_admin = "";
@@ -33,9 +35,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
 
+
     if(empty($email_err) && empty($password_err)){
 
         $sql = "SELECT id, email, password, is_admin FROM users WHERE email = ?";
+
 
         if($stmt = mysqli_prepare($con, $sql)){
 
@@ -44,10 +48,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             $param_email = $email;
 
+
+            var_dump(mysqli_stmt_num_rows($stmt), mysqli_stmt_execute($stmt));
+
+
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Store result
                 mysqli_stmt_store_result($stmt);
+               // var_dump(mysqli_stmt_store_result($stmt));
+
 
                 // Check if email exists, if yes then verify password
                 if(mysqli_stmt_num_rows($stmt) == 1){
@@ -55,27 +65,33 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     mysqli_stmt_bind_result($stmt, $id, $email, $hashed_password, $is_admin);
 
                     if(mysqli_stmt_fetch($stmt)){
-                        if(password_verify($password, $hashed_password)){
+                        if(password_verify($password, $hashed_password)) {
                             // Password is correct, so start a new session
-                            session_start();
-
-                            // Store data in session variables
-                            $_SESSION["loggedin"] = true;
-                            $_SESSION["id"] = $id;
-                            $_SESSION["email"] = $email;
-                            $_SESSION["is_admin"] =$is_admin;
+//                            session_start();
+//
+//                            echo "session set= " . $_SESSION;
+//
+//                            // Store data in session variables
+//                            $_SESSION["loggedin"] = true;
+//                            $_SESSION["id"] = $id;
+//                            $_SESSION["email"] = $email;
+//                            $_SESSION["is_admin"] = $is_admin;
 
 //                            header("location: home.php");
 
+var_dump($is_admin);
+//                             Redirect user according to user type
+                            if ($is_admin == 1) {
+                                var_dump('do we reach this prt');
+                                //librarian
+                                header("location: librarian.php");
+                            } elseif($is_admin == 0){
+                                var_dump('or here');
+                                //student
+                            header("location: student.php");
+                        }
+                            var_dump('definitely this part');
 
-                             //Redirect user according to user type
-                                 if($is_admin == 1) {
-                                     //librarian
-                                 header("location: librarian.php");
-                             }elseif($is_admin == 0) {
-                                 //student
-                                 header("location: student.php");
-                             }
 
                         } else{
                             // Display an error message if password is not valid
@@ -85,11 +101,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 } else{
                     // Display an error message if email doesn't exist
                     $email_err = "No account found with that email.";
+                    echo $email_err;
                 }
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
         }
+
 
         // Close statement
         mysqli_stmt_close($stmt);
@@ -112,7 +130,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <div class="container text-center" style="width: 400px;background: #fcfcfc;margin: 100px auto;">
     <h2>Login</h2>
     <p>Please fill in your credentials to login.</p>
-    <form action="login.php" method="post">
+    <form action="login.php" method="POST">
         <div class="form-group <?php echo (!empty($email_err)) ? 'has-error' : ''; ?>">
             <label>Email</label>
             <input type="text" name="email" class="form-control" value="<?php echo $email; ?>">

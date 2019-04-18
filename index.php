@@ -1,10 +1,13 @@
 <?php
-
+// Initialize the session
 session_start();
-require_once "class/config.php";
-if(isset($_SESSION['user'])) {
-    header('Location: librarian.php');
+
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -15,47 +18,42 @@ if(isset($_SESSION['user'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="./js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand">CYTONN COLLEGE LIBRARY</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand">CYTONN COLLEGE LIBRARY</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="logout.php"><i style="color:pink;float: right"class="fa fa-sign-out-alt"></i>Logout <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="librarian.php"><i style="color:pink;" class="fa fa-home"></i>Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="books.php"><i style="color:pink;"class="fa fa-book-open"></i>Add books <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="booklist.php"><i style="color:pink;"class="fa fa-book"></i>Book list <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="status.php"><i style="color:pink;"class="fa fa-info"></i>View status <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="logout.php"><i style="color:pink;"class="fa fa-sign-out-alt"></i>Logout <span class="sr-only">(current)</span></a>
-            </li>
-        </ul>
-    </div>
-</nav>
 <div class="carousel-inner">
-    <div class="carousel-item active">
-        <div style="height: 550px;width:100%;background-repeat:no-repeat;background-position: center;background-size: cover;opacity: 1 ;background-image: url('./image/9.jpg');"></div>
+    <div class="carousel-item active"style="background-color: crimson">
+        <div style="height: 400px;width:100%;background-color: crimson"></div>
     </div>
     <div class="container">
         <div class="row">
             <div class="col-sm">
+                <br/><br/><br/><br/>
+
+                <h1 style="color: white;font-family: 'Pacifico', cursive;"> Reading can seriously damage your ignorance</h1>
             </div>
             <div class="col-sm">
             </div>
-            <div class="col-sm"></div>
+            <div class="col-sm">
+                <br/><br/><br/><br/>
+                <div style="height: 300px;width:110%;background-repeat:no-repeat;background-size: cover;opacity:0.8;background-image: url('./image/5.jpg');"></div>
+
+            </div>
         </div>
     </div>
 </div>
-
 <div style="background-color:rgba(211,211,211,0.5);">
     <br/><br/><br/>
     <div class="container">
@@ -91,6 +89,7 @@ if(isset($_SESSION['user'])) {
 
 
             </div>
+
         </div>
     </div>
     <div class="container">
@@ -105,10 +104,5 @@ if(isset($_SESSION['user'])) {
         </div>
     </div>
 </div>
-
-</body>
-</html>
-
-
 </body>
 </html>

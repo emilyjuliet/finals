@@ -1,14 +1,10 @@
 <?php
+
 session_start();
-
-
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-header("location: home.html");
-exit;
-}
-
-
 require_once "class/config.php";
+if(isset($_SESSION['user'])) {
+    header('Location: student.php');
+}
 ?>
 
 <!DOCTYPE html>
