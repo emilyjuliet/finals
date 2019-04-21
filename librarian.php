@@ -30,9 +30,6 @@ if(isset($_SESSION['user'])) {
                 <a class="nav-link" href="books.php"><i style="color:pink;"class="fa fa-book-open"></i>Add books <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="booklist.php"><i style="color:pink;"class="fa fa-book"></i>Book list <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
                 <a class="nav-link" href="status.php"><i style="color:pink;"class="fa fa-info"></i>View status <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">

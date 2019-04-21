@@ -1,8 +1,8 @@
 <?php
 
 session_start();
-require_once "class/config.php";
-if(isset($_SESSION['user'])) {
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+
     if ($is_admin == 1) {
         //librarian
         header("location: librarian.php");
@@ -10,9 +10,10 @@ if(isset($_SESSION['user'])) {
         //student
         header("location: student.php");
     }
+    exit;
 }
 
-
+require_once "class/config.php";
 
 $email = $password = $is_admin = "";
 $email_err = $password_err = "";
@@ -67,30 +68,29 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     if(mysqli_stmt_fetch($stmt)){
                         if(password_verify($password, $hashed_password)) {
                             // Password is correct, so start a new session
-//                            session_start();
+                            session_start();
 //
 //                            echo "session set= " . $_SESSION;
 //
 //                            // Store data in session variables
-//                            $_SESSION["loggedin"] = true;
-//                            $_SESSION["id"] = $id;
-//                            $_SESSION["email"] = $email;
-//                            $_SESSION["is_admin"] = $is_admin;
+                            $_SESSION["loggedin"] = true;
+                            $_SESSION["id"] = $id;
+                            $_SESSION["email"] = $email;
+                            $_SESSION["is_admin"] = $is_admin;
 
 //                            header("location: home.php");
 
-var_dump($is_admin);
 //                             Redirect user according to user type
                             if ($is_admin == 1) {
-                                var_dump('do we reach this prt');
+                                //var_dump('do we reach this prt');
                                 //librarian
                                 header("location: librarian.php");
                             } elseif($is_admin == 0){
-                                var_dump('or here');
+                                //var_dump('or here');
                                 //student
                             header("location: student.php");
                         }
-                            var_dump('definitely this part');
+                           // var_dump('definitely this part');
 
 
                         } else{
@@ -116,6 +116,48 @@ var_dump($is_admin);
     // Close connection
     mysqli_close($con);
 }
+
+//session_start();
+//
+//include_once 'user.php';
+//
+//$user = new User();
+//
+//$email = $password = $is_admin = "";
+//$email_err = $password_err = "";
+//
+//if (isset($_REQUEST['submit'])) {
+//
+//    extract($_REQUEST);
+//
+//    $login = $user->checkLogin($email, $password);
+//
+//    if ($login) {
+//
+//        // Registration Success
+//
+////	           header("location:home.php");
+//        //Redirect user according to user type
+//                            if ($is_admin == 1) {
+//                                //var_dump('do we reach this prt');
+//                                //librarian
+//                                header("location: librarian.php");
+//                            } elseif($is_admin == 0){
+//                                //var_dump('or here');
+//                                //student
+//                            header("location: student.php");
+//                        }
+//
+//    } else {
+//
+//        // Registration Failed
+//
+//        echo 'Wrong username or password';
+//
+//    }
+//
+//}
+
 ?>
 
 <!DOCTYPE html>

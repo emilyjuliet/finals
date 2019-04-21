@@ -118,7 +118,6 @@ $result=mysqli_query($con,$sql);
     <tr>
         <th> Name </th>
         <th> Book </th>
-        <th> Status </th>
         <th> Date </th>
         <th> Actions </th>
     </tr>
@@ -127,7 +126,6 @@ $result=mysqli_query($con,$sql);
     <tr>
         <td class="text-center"><?php echo getUsers($array['user_id']); ?></td>
         <td class="text-center"><?php echo getBooks($array['book_id']); ?></td>
-        <td class="text-center"><?php echo $array['status']; ?></td>
         <td class="text-center"><?php echo $array['date']; ?></td>
 
         <td>

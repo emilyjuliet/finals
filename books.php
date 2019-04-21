@@ -220,7 +220,7 @@ $result=mysqli_query($con,$sql);
     <p><?php echo $delete_error?></p>
     <p><?php echo $success_message; ?></p>
 
-<?php //if ($_SESSION["is_admin"] == 1) {?>
+<?php if ($_SESSION["is_admin"] == 1) {?>
 <form action="books.php" style="width: 400px;background: #fcfcfc;margin: 70px auto;" method="POST">
     <div class="form-group" >
         <label for="formGroupExampleInput">Title</label>
@@ -271,18 +271,32 @@ $result=mysqli_query($con,$sql);
     <?php } ?>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-<?php //}?>
+<?php }?>
 
 <!--<div class="card" style="width: 18rem;">-->
 <!--    <div class="card-details">-->
     <?php while($array=mysqli_fetch_row($result)) { ?>
 
 <!--           <div class="card-section">-->
-        <div class="card" style="width: 18rem;">
-               <img src="<?php  echo $array[9]; ?>" alt="" style="height: 400px">
-               <b><p class="text-center"><?php echo $array[1]; ?></p></b>
-               <b><p class="text-center"><?php echo $array[2]; ?></p></b>
-               <?php if ($_SESSION["is_admin"] == 0) {?>
+<!--        <div class="card" style="width: 18rem;">-->
+<!--               <img src="--><?php // echo $array[9]; ?><!--" alt="" style="height: 400px">-->
+<!--               <b><p class="text-center">--><?php //echo $array[1]; ?><!--</p></b>-->
+<!--               <b><p class="text-center">--><?php //echo $array[2]; ?><!--</p></b>-->
+<div class="col-sm-4" style="margin-bottom: 30px; 4px;float: left">
+
+    <div class="card">
+
+        <div class="card-body" style="padding-top:">
+
+            <div class="row" style="margin-bottom:20px;background-position: center;background-size:cover;background-repeat:no-repeat;background-image: URL(<?php echo $array[9]; ?>); height: 600px;">
+
+            </div>
+
+            <h5 class="card-title"><strong><?php echo $array[1]; ?></strong></h5>
+
+            <p class="card-text"><small><strong>AUTHOR:</strong><?php echo $array[2]; ?></small></p>
+
+            <?php if ($_SESSION["is_admin"] == 0) {?>
                    <p>
                    <form action="books.php" method="POST">
                        <input type="hidden" name="book_id" value="<?php echo $array[0]; ?>">
@@ -293,7 +307,7 @@ $result=mysqli_query($con,$sql);
                    </p>
                <?php }?>
 
-<!--               --><?php //if ($_SESSION["is_admin"] == 1) {?>
+               <?php if ($_SESSION["is_admin"] == 1) {?>
                    <p>
                    <form action="books.php" method="POST">
                        <input type="hidden" name="book_id" value="<?php echo $array[0]; ?>">
@@ -314,8 +328,10 @@ $result=mysqli_query($con,$sql);
 
                    </form>
                    </p>
-<!--               --><?php //}?>
+               <?php }?>
            </div>
+    </div>
+</div>
 
 
     <?php }?>
