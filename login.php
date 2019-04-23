@@ -70,19 +70,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["email"] = $email;
                             $_SESSION["is_admin"] = $is_admin;
 
-//                            header("location: home.php");
 
 //                             Redirect user according to user type
                             if ($is_admin == 1) {
-                                //var_dump('do we reach this prt');
+
                                 //librarian
                                 header("location: librarian.php");
                             } elseif($is_admin == 0){
-                                //var_dump('or here');
+
                                 //student
                             header("location: student.php");
                         }
-                           // var_dump('definitely this part');
+
 
 
                         } else{

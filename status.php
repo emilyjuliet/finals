@@ -129,7 +129,7 @@ $result=mysqli_query($con,$sql);
         <td class="text-center"><?php echo $array['date']; ?></td>
 
         <td>
-        <form action="status.php" method="post">
+        <form action="status.php" method="POST">
             <input type="hidden" name="reservations_id" value="<?php echo $array[0]; ?>">
 
             <input type="hidden" value="issue_action" name="issue_action">
@@ -137,7 +137,7 @@ $result=mysqli_query($con,$sql);
             <button type="submit" class="btn btn-primary">Issue</button>
         </form>
                         </br>
-        <form action="status.php" method="post">
+        <form action="status.php" method="POST">
 
             <input type="hidden" name="reservations_id" value="<?php echo $array[0]; ?>">
 

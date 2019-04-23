@@ -6,40 +6,6 @@ $firstname = $lastname = $email = $password = $confirm_password = "";
 $firstname_err = $lastname_err = $email_err = $password_err = $confirm_password_err = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    //var_dump('test');
-    // check if empty
-   //if (isset($_POST['create_new'])) { // creating new
-//        if (
-//            empty(trim($_POST["firstname"])) &&
-//            empty(trim($_POST["lastname"])) &&
-//            empty(trim($_POST["email"])) &&
-//            empty(trim($_POST["password"])) &&
-//            empty(trim($_POST["confirm_password"]))
-//        ) {
-//            $form_error = "Please fill the form correctly.";
-//        } else {
-//
-//            $firstname = $_POST["firstname"];
-//            $lastname = $_POST["lastname"];
-//            $email = $_POST["email"];
-//            $password = $_POST["password"];
-//            $confirm_password = $_POST["confirm_password"];
-//
-//
-//            $sql = "INSERT into users(firstname, lastname, email, password, confirm_password, is_admin) VALUES ('$firstname', '$lastname', '$email', '$password', '$confirm_password' ,'0')";
-//
-//            // echo (mysqli_query($conn,$sql));
-//
-//            $enter = mysqli_query($con, $sql);
-//
-//            var_dump($con, $enter, $sql);
-//
-//            if ($enter){
-//                header("location: login.php");
-//            }
-//        }
-//    }
-
 
     // check if user exists
     if (empty(trim($_POST["email"]))) {
@@ -107,12 +73,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-
-    // save to database
     // check input errors before inserting in database
     if (empty($firstname_err) && empty($lastname_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err)) {
         // prepare an insert statement
-//                $sql = "INSERT INTO users (firstname, lastname, email, password) VALUES (?, ?, ?, ?)";
         if (
             empty(trim($_POST["firstname"])) &&
             empty(trim($_POST["lastname"])) &&
@@ -128,43 +91,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $email = $_POST["email"];
             $password = $_POST["password"];
             $confirm_password = $_POST["confirm_password"];
-
-
-            //$sql = "INSERT into users(firstname, lastname, email, password, confirm_password, is_admin) VALUES ('$firstname', '$lastname', '$email', '$password', '$confirm_password' ,'0')";
-
-            // echo (mysqli_query($conn,$sql));
-
-
-
         }
-        // set parameters
-        //$param_firstname = $firstname;
-        //$param_lastname = $lastname;
-        //$param_email = $email;
+
         $param_password = password_hash($password, PASSWORD_DEFAULT); // creates a password hash
-        //mysqli_stmt_bind_param($stmt, "ssss", $param_firstname, $param_lastname, $param_email, $param_password);
 
         $sql = "INSERT INTO users (firstname, lastname, email, password, is_admin) VALUES ('$firstname', '$lastname', '$email', '$param_password', '0')";
 
 
         $enter = mysqli_query($con, $sql);
-
-
-//        mysqli_stmt_execute($enter);
-
-//        mysqli_stmt_store_result($enter);
-
-//        if ($enter) {
-//            echo "Something went wrong. Please try again later. ";
-//
-//        } else {
-//            header("location: login.php");
-//        }
-        //if ($stmt = mysqli_prepare($con, $sql)) {
-        // bind variables to the prepared statement as parameters
-
-
-//                    var_dump($stmt);
 
         // attempt to execute the prepared statement
                     if ($enter) {

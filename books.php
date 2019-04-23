@@ -6,7 +6,7 @@ if (isset($_SESSION['user'])) {
     header('Location: books.php');
 }
 
-//var_dump($_SESSION, 'this is a session');
+
 
 $form_error = $delete_error = $date = $success_message = '';
 $show_form = $reserve_book = false;
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $isbn_number = $_POST["isbn_number"];
             $category = $_POST["category"];
             $description = $_POST["description"];
-            $user_id = "10"; // I will return a session and fetch the id of the currently logged in user
+            $user_id = $_SESSION['id'];
             $photo = '/bookimage/' . $_POST["photo"];
             $created_at = new DateTime();
             $updated_at = new DateTime();
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $isbn_number = $_POST["isbn_number"];
         $category = $_POST["category"];
         $description = $_POST["description"];
-        $user_id = "10";
+        $user_id = $_SESSION['id'];
         $photo = '/bookimage/' . $_POST["photo"];
         $created_at = new DateTime();
         $updated_at = new DateTime();
@@ -207,24 +207,19 @@ $result = mysqli_query($con, $sql);
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand">CYTONN COLLEGE LIBRARY</a>
-
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <?php if ($_SESSION["is_admin"] == 1) { ?>
                 <li class="nav-item active">
-                    <a class="nav-link" href="librarian.php"><i style="color:pink;" class="fa fa-home"></i>Home <span
-                                class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="librarian.php"><i style="color:pink;" class="fa fa-home"></i>Home <span class="sr-only">(current)</span></a>
                 </li>
             <?php } else { ?>
                 <li class="nav-item active">
-                    <a class="nav-link" href="student.php"><i style="color:pink;" class="fa fa-home"></i>Home <span
-                                class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="student.php"><i style="color:pink;" class="fa fa-home"></i>Home <span class="sr-only">(current)</span></a>
                 </li>
             <?php } ?>
             <li class="nav-item active">
-                <a class="nav-link" href="logout.php"><i style="color:pink;float: right" class="fa fa-sign-out-alt"></i>Logout
-                    <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="logout.php"><i style="color:pink;float: right" class="fa fa-sign-out-alt"></i>Logout<span class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>
@@ -270,11 +265,7 @@ $result = mysqli_query($con, $sql);
             <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Title description"
                    name="description" value="<?php echo $description; ?>">
         </div>
-        <!--    <div class="form-group">-->
-        <!--        <label for="formGroupExampleInput2">Created by</label>-->
-        <!--        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Created by" name="user_id" value=" -->
-        <?php //echo $user_id; ?><!--">-->
-        <!--    </div>-->
+
 
         <div class="custom-file">
             <input type="file" class="custom-file-input" id="customFile" name="photo" value=" <?php echo $photo; ?>">
@@ -294,15 +285,9 @@ $result = mysqli_query($con, $sql);
     </form>
 <?php } ?>
 
-<!--<div class="card" style="width: 18rem;">-->
-<!--    <div class="card-details">-->
 <?php while ($array = mysqli_fetch_row($result)) { ?>
 
-    <!--           <div class="card-section">-->
-    <!--        <div class="card" style="width: 18rem;">-->
-    <!--               <img src="--><?php // echo $array[9]; ?><!--" alt="" style="height: 400px">-->
-    <!--               <b><p class="text-center">--><?php //echo $array[1]; ?><!--</p></b>-->
-    <!--               <b><p class="text-center">--><?php //echo $array[2]; ?><!--</p></b>-->
+
     <div class="col-sm-4" style="margin-bottom: 30px; 4px;float: left">
 
         <div class="card">
@@ -319,51 +304,51 @@ $result = mysqli_query($con, $sql);
                     <small><strong>AUTHOR:</strong><?php echo $array[2]; ?></small>
                 </p>
 
-                <?php if ($_SESSION["is_admin"] == 0) { ?>
-                    <?php if (checkReserved($array[0])) { ?>
-                        <p>
-                        <form action="books.php" method="POST">
-                            <input type="hidden" name="book_id" value="<?php echo $array[0]; ?>">
-                            <input type="hidden" value="reserve_book" name="reserve_action">
+      <?php if ($_SESSION["is_admin"] == 0) { ?>
+         <?php if (checkReserved($array[0])) { ?>
+              <p>
+              <form action="books.php" method="POST">
+                  <input type="hidden" name="book_id" value="<?php echo $array[0]; ?>">
+                  <input type="hidden" value="reserve_book" name="reserve_action">
 
-                            <button type="submit" class="btn btn-primary">Reserve</button>
-                        </form>
-                        </p>
-                    <?php } else { ?>
-                        <p style="font-family: 'Pacifico', cursive;">Reserved</p>
-                    <?php }
-                } ?>
+                  <button type="submit" class="btn btn-primary">Reserve</button>
+              </form>
+              </p>
+          <?php } else { ?>
+              <p style="font-family: 'Pacifico', cursive;">Reserved</p>
+          <?php }
+       } ?>
 
-                <?php if ($_SESSION["is_admin"] == 1) { ?>
-                    <p>
-                    <form action="books.php" method="POST">
-                        <input type="hidden" name="book_id" value="<?php echo $array[0]; ?>">
+      <?php if ($_SESSION["is_admin"] == 1) { ?>
+          <p>
+          <form action="books.php" method="POST">
+              <input type="hidden" name="book_id" value="<?php echo $array[0]; ?>">
 
-                        <input type="hidden" value="delete_action" name="delete_action">
+              <input type="hidden" value="delete_action" name="delete_action">
 
-                        <button type="submit" class="btn btn-primary">Delete</button>
-                    </form>
-                    </br>
+              <button type="submit" class="btn btn-primary">Delete</button>
+          </form>
+          </br>
 
-                    <form action="books.php" method="POST">
+          <form action="books.php" method="POST">
 
-                        <input type="hidden" name="book_id" value="<?php echo $array[0]; ?>">
+              <input type="hidden" name="book_id" value="<?php echo $array[0]; ?>">
 
-                        <input type="hidden" name="edit_action" value="edit_action">
+              <input type="hidden" name="edit_action" value="edit_action">
 
-                        <button type="submit" class="btn btn-primary">Edit</button>
+              <button type="submit" class="btn btn-primary">Edit</button>
 
-                    </form>
-                    </p>
-                <?php } ?>
-            </div>
-        </div>
+          </form>
+          </p>
+      <?php } ?>
+
+     </div>
+     </div>
     </div>
 
 
 <?php } ?>
-<!--    </div>-->
-<!--</div>-->
+
 
 
 <?php mysqli_free_result($result); ?>
