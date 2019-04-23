@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 
     if ($is_admin == 1) {
@@ -20,7 +21,6 @@ $email_err = $password_err = "";
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-
 
     if(empty(trim($_POST["email"]))){
         $email_err = "Please enter email.";
@@ -49,16 +49,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             $param_email = $email;
 
-
-            var_dump(mysqli_stmt_num_rows($stmt), mysqli_stmt_execute($stmt));
-
-
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
                 // Store result
                 mysqli_stmt_store_result($stmt);
-               // var_dump(mysqli_stmt_store_result($stmt));
-
 
                 // Check if email exists, if yes then verify password
                 if(mysqli_stmt_num_rows($stmt) == 1){
@@ -66,13 +60,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     mysqli_stmt_bind_result($stmt, $id, $email, $hashed_password, $is_admin);
 
                     if(mysqli_stmt_fetch($stmt)){
+
                         if(password_verify($password, $hashed_password)) {
                             // Password is correct, so start a new session
                             session_start();
-//
-//                            echo "session set= " . $_SESSION;
-//
-//                            // Store data in session variables
+
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["email"] = $email;
@@ -99,6 +91,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         }
                     }
                 } else{
+
+
                     // Display an error message if email doesn't exist
                     $email_err = "No account found with that email.";
                     echo $email_err;
@@ -116,47 +110,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Close connection
     mysqli_close($con);
 }
-
-//session_start();
-//
-//include_once 'user.php';
-//
-//$user = new User();
-//
-//$email = $password = $is_admin = "";
-//$email_err = $password_err = "";
-//
-//if (isset($_REQUEST['submit'])) {
-//
-//    extract($_REQUEST);
-//
-//    $login = $user->checkLogin($email, $password);
-//
-//    if ($login) {
-//
-//        // Registration Success
-//
-////	           header("location:home.php");
-//        //Redirect user according to user type
-//                            if ($is_admin == 1) {
-//                                //var_dump('do we reach this prt');
-//                                //librarian
-//                                header("location: librarian.php");
-//                            } elseif($is_admin == 0){
-//                                //var_dump('or here');
-//                                //student
-//                            header("location: student.php");
-//                        }
-//
-//    } else {
-//
-//        // Registration Failed
-//
-//        echo 'Wrong username or password';
-//
-//    }
-//
-//}
 
 ?>
 
