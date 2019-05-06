@@ -107,6 +107,15 @@ $result=mysqli_query($con,$sql);
                 <a class="nav-link" href="librarian.php"><i style="color:pink;" class="fa fa-home"></i>Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
+                <a class="nav-link" href="add.php"><i style="color:pink;"class="fa fa-book-reader"></i>Add books <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="books.php"><i style="color:pink;"class="fa fa-book-open"></i>List books <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="status.php"><i style="color:pink;"class="fa fa-info"></i>View status <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
                 <a class="nav-link" href="logout.php"><i style="color:pink;float: right"class="fa fa-sign-out-alt"></i>Logout <span class="sr-only">(current)</span></a>
             </li>
         </ul>
@@ -114,11 +123,10 @@ $result=mysqli_query($con,$sql);
 </nav>
 <p><?php echo $view_error ?></p>
 
-<table class="table" style="width: 700px;background: #fcfcfc;margin: 70px auto;">
+<table class="table" style="width: 600px;background: #fcfcfc;margin: 70px auto;">
     <tr>
         <th> Name </th>
         <th> Book </th>
-        <th> Date </th>
         <th> Actions </th>
     </tr>
 
@@ -126,7 +134,7 @@ $result=mysqli_query($con,$sql);
     <tr>
         <td class="text-center"><?php echo getUsers($array['user_id']); ?></td>
         <td class="text-center"><?php echo getBooks($array['book_id']); ?></td>
-        <td class="text-center"><?php echo $array['date']; ?></td>
+
 
         <td>
         <form action="status.php" method="POST">
