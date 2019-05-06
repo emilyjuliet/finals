@@ -14,28 +14,7 @@ $id = $title = $author = $publisher = $year_of_publication = $isbn_number = $cat
 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
-    if (isset($_POST['create_edit'])) {
-        $bookId = $_POST["book_id"];
-
-        $title = $_POST["title"];
-        $author = $_POST["author"];
-        $publisher = $_POST["publisher"];
-        $year_of_publication = $_POST["year_of_publication"];
-        $isbn_number = $_POST["isbn_number"];
-        $category = $_POST["category"];
-        $description = $_POST["description"];
-        $user_id = $_SESSION['id'];
-        $photo = '/bookimage/' . $_POST["photo"];
-        $created_at = new DateTime();
-        $updated_at = new DateTime();
-
-        $sql = "UPDATE books SET title = '$title', author = '$author', publisher = '$publisher', year_of_publication = '$year_of_publication', isbn_number = '$isbn_number', category = '$category', description = '$description', user_id = '$user_id', photo = '$photo'  WHERE id = '$book_id'";
-
-        $edit = mysqli_query($con, $sql);
-
-    }
-    elseif (isset($_POST["delete_action"])) {
+    if (isset($_POST["delete_action"])) {
 
         $bookId = $_POST["book_id"];
 
@@ -43,8 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if (mysqli_query($con, $sql)) {
             header("location: books.php");
+
+            $success_message = 'Book has been deleted';
         } else {
-            $delete_error = "Deletion process was unsuccessful";
+            $delete_error = 'Deletion process was unsuccessful';
         }
 
     } elseif (isset($_POST['edit_action'])) {
