@@ -99,9 +99,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $stmt = mysqli_prepare($con, $sql);
 
             if (mysqli_stmt_execute($stmt)) {
-                $success_message = "Book has been added";
-
+                
                 header("Location: books.php"); 
+
+                $success_message = 'Book has been added';
+
             }else{
                 $form_error = 'Process was unsuccessful';
             }
@@ -155,9 +157,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt = mysqli_prepare($con, $sql);
 
         if (mysqli_stmt_execute($stmt)) {
-            $success_message = "Book has been edited successfully";
 
-            header("Location: books.php"); 
+            header("Location: books.php");
+
+            $success_message = 'Book has been edited successfully'; 
         }else{
             $form_error = 'Edit Process was unsuccessful';
         }
@@ -229,10 +232,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <label for="formGroupExampleInput2">ISBN no.</label>
             <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="ISBN no." name="isbn_number" value="<?php echo $isbn_number; ?>">
         </div>
-        <!-- <div class="form-group">
-            <label for="formGroupExampleInput2">Category</label>
-            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Category" name="category" value="<?php echo $category; ?>">
-        </div> -->
         <div class="form-group">
     <label for="exampleFormControlSelect1">Category</label>
     <select class="form-control" id="exampleFormControlSelect1">
