@@ -27,7 +27,7 @@ if(isset($_SESSION['user'])) {
                 <a class="nav-link" href="student.php"><i style="color:pink;" class="fa fa-home"></i>Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="books.php"><i style="color:pink;"class="fa fa-book-reader"></i>Books<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="listbooks.php"><i style="color:pink;"class="fa fa-book-reader"></i>Books<span class="sr-only">(current)</span></a>
             </li>
 
             <li class="nav-item active">
