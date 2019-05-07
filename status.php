@@ -107,10 +107,10 @@ $result=mysqli_query($con,$sql);
                 <a class="nav-link" href="librarian.php"><i style="color:pink;" class="fa fa-home"></i>Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="add.php"><i style="color:pink;"class="fa fa-book-reader"></i>Add books <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="bookform.php"><i style="color:pink;"class="fa fa-book-reader"></i>Add books <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="books.php"><i style="color:pink;"class="fa fa-book-open"></i>List books <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="listbooks.php"><i style="color:pink;"class="fa fa-book-open"></i>List books <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="status.php"><i style="color:pink;"class="fa fa-info"></i>View status <span class="sr-only">(current)</span></a>
