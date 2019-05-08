@@ -100,13 +100,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             if (mysqli_stmt_execute($stmt)) {
                 
-                header("Location: listbooks.php"); 
-
                 $success_message = 'Book has been added';
 
             }else{
                 $form_error = 'Process was unsuccessful';
             }
+
+            header("Location: listbooks.php"); 
+
+            
         }
     }elseif (isset($_POST['edit_action'])) {
 
@@ -158,12 +160,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if (mysqli_stmt_execute($stmt)) {
 
-            header("Location: listbooks.php");
-
             $success_message = 'Book has been edited successfully'; 
         }else{
             $form_error = 'Edit Process was unsuccessful';
         }
+
+        header("Location: listbooks.php");
+        
     }
 }
 ?>
