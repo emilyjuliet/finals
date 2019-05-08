@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $sql = "DELETE from books WHERE id='$bookId'";
 
         if (mysqli_query($con, $sql)) {
-            header("location: listbooks.php");
+            //header("location: listbooks.php");
 
             $success_message = 'Book has been deleted';
         } else {
@@ -30,71 +30,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     } elseif (isset($_POST['edit_action'])) {
 
-        header('Location: bookform.php');
+        
 
+        if ($stmt2) {
+        $success_message = "Book has been edited";
+    } else {
+        $form_error = 'Process was unsuccessful';
+    }
 
+ header('Location: bookform.php');
     } 
-    // elseif (isset($_POST['reserve_action'])) {
-
-    //     $action = $_POST['reserve_action'];
-
-    //     if ($action == 'reserve_book') {
-    //         $reserve_book = true;
-    //         $bookId = $_POST["book_id"];
-
-    //         $sql = "SELECT * FROM books WHERE id = '$bookId'";
-
-    //         $dataBooks = mysqli_query($con, $sql);
-
-    //         $detailsBooks = mysqli_fetch_row($dataBooks);
-
-    //         $title = $detailsBooks[1];
-    //         $user_id = $_SESSION['id'];
-
-    //         $sqlUser = "SELECT * FROM users WHERE id = '$user_id'";
-
-    //         $dataUser = mysqli_query($con, $sqlUser);
-    //         $detailsUser = mysqli_fetch_row($dataUser);
-
-    //         $firstname = $detailsUser[1];
-    //         $lastname = $detailsUser[2];
-
-
-    //     } elseif ($action == 'reserve') {
-
-    //         $reserve_book = true;
-
-    //         $bookId = (int)$_POST['book_id'];
-    //         $user_id = $_SESSION['id'];
-    //         $date = $_POST['date'];
-
-    //         $sqlAddReservation = "INSERT into reservations (date, user_id, book_id) VALUES ('$date', '$user_id', '$bookId')";
-
-    //         $enter = mysqli_query($con, $sqlAddReservation);
-
-    //         if ($enter) {
-    //             $success_message = "Book has been reserved";
-    //         } else {
-    //             $form_error = 'form error here';
-    //         }
-
-    //     }
-
-    // }
 }
-
-
-// function getUserdetails($user_id)
-// {
-//     global $con;
-
-//     $sql = "SELECT * FROM users WHERE id = $user_id";
-//     $dataReserve = mysqli_query($con, $sql);
-//     $details = mysqli_fetch_array($dataReserve);
-
-//     return $details['firstname'] . ' ' . $details['lastname'];
-// }
-
 
 function checkReserved($bookId)
 {
@@ -154,6 +100,14 @@ if(isset($_POST['reserveBook'])) {
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+<!-- 
+     <script type="text/javascript">
+    $('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})
+    </script> -->
+    
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -241,6 +195,7 @@ if(isset($_POST['reserveBook'])) {
               <input type="hidden" value="delete_action" name="delete_action">
 
               <button type="submit" class="btn btn-primary">Delete</button>
+             
           </form>
           </br>
 
