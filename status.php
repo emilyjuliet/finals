@@ -11,15 +11,15 @@ $view_error  =  '';
 if($_SERVER["REQUEST_METHOD"] === "POST") {
     $book_id = (int)$_POST['book_id'];
     $user_id = (int)$_POST['user_id'];
-    $reservations = $_POST['date'];
 
-    $sql = "SELECT * FROM reservations (date, user_id, book_id) VALUES ('" . $date . "', " . $user_id . ", " . $book_id . ")";
+    $sql = "SELECT * FROM reservations (user_id, book_id) VALUES (" . $user_id . ", " . $book_id . ")";
 
-    if (mysqli_query($con, $sql)) {
-        header("location: status.php");
-    } else {
-        $view_error = "Process was unsuccessful";
-    }
+    // if (mysqli_query($con, $sql)) {
+    //     header("location: status.php");
+    // } else {
+    //     $view_error = "Process was unsuccessful";
+    // }
+    $enter = mysqli_query($con,$sql);
 
 
 
@@ -36,9 +36,9 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         mail($to, $subject, $message, $headers);
 
         if (mail($to, $subject, $message, $headers)) {
-            echo 'Message could not be sent.';
+            echo 'Message has been sent.';
         } else {
-            echo 'Message has been sent';
+            echo 'Message could not sent';
         }
 
     } elseif (isset($_POST["reject_action"])) {
@@ -54,9 +54,9 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         mail($to, $subject, $message, $headers);
 
         if (mail($to, $subject, $message, $headers)) {
-            echo 'Message could not be sent.';
+            echo 'Message has been sent.';
         } else {
-            echo 'Message has been sent';
+            echo 'Message could not sent';
         }
 
 }
