@@ -14,11 +14,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $sql = "SELECT * FROM reservations (user_id, book_id) VALUES (" . $user_id . ", " . $book_id . ")";
 
-    // if (mysqli_query($con, $sql)) {
-    //     header("location: status.php");
-    // } else {
-    //     $view_error = "Process was unsuccessful";
-    // }
+    
     $enter = mysqli_query($con,$sql);
 
 
@@ -41,25 +37,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
             echo 'Message could not sent';
         }
 
-    } elseif (isset($_POST["reject_action"])) {
-        $user_email = $_POST['email'];
-        //reject book
-        $to = $user_email;
-        $subject = 'Cytonn library book reservation';
-        $message = 'Hi, your reservation has been declined';
-        $headers = 'From: julietkiboi@gmail.com' . "\r\n" .
-            'Reply-To: julietkiboi@gmail.com' . "\r\n" .
-            'X-Mailer: PHP/' . phpversion();
-
-        mail($to, $subject, $message, $headers);
-
-        if (mail($to, $subject, $message, $headers)) {
-            echo 'Message has been sent.';
-        } else {
-            echo 'Message could not sent';
-        }
-
-}
+    } 
 
 function getUsers($user_id){
     global $con;
@@ -124,39 +102,29 @@ $result=mysqli_query($con,$sql);
 <p><?php echo $view_error ?></p>
 
 <table class="table" style="width: 600px;background: #fcfcfc;margin: 70px auto;">
-    <tr>
-        <th> Name </th>
-        <th> Book </th>
-        <th> Actions </th>
-    </tr>
+        <tr>
+            <th> Name </th>
+            <th> Book </th>
+            <th> Actions </th>
+        </tr>
 
-    <?php while($array=mysqli_fetch_array($result)) { ?>
-    <tr>
-        <td class="text-center"><?php echo getUsers($array['user_id']); ?></td>
-        <td class="text-center"><?php echo getBooks($array['book_id']); ?></td>
+        <?php while($array=mysqli_fetch_array($result)) { ?>
+            <tr>
+                <td class="text-center"><?php echo getUsers($array['user_id']); ?></td>
+                <td class="text-center"><?php echo getBooks($array['book_id']); ?></td>
 
 
-        <td>
-        <form action="status.php" method="POST">
-            <input type="hidden" name="reservations_id" value="<?php echo $array[0]; ?>">
+                <td>
+                    <form action="status.php" method="POST">
+                        <input type="hidden" name="reservations_id" value="<?php echo $array[0]; ?>">
 
-            <input type="hidden" value="issue_action" name="issue_action">
+                        <input type="hidden" value="issue_action" name="issue_action">
 
-            <button type="submit" class="btn btn-primary">Issue</button>
-        </form>
-                        </br>
-        <form action="status.php" method="POST">
-
-            <input type="hidden" name="reservations_id" value="<?php echo $array[0]; ?>">
-
-            <input type="hidden" name="reject_action" value="reject_action">
-
-            <button type="submit" class="btn btn-primary">Reject</button>
-
-        </form>
-        </td>
-    </tr>
-    <?php } ?>
+                        <button type="submit" class="btn btn-primary">Issue</button>
+                    </form>
+                </td>
+            </tr>
+        <?php } ?>
 </table>
 </body>
 </html>
